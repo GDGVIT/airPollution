@@ -82,7 +82,7 @@ from scipy import ndimage
 
 
 
-img = cv2.imread('mapsharan[576].png')
+img = cv2.imread('vellore.jpg')
 shifted = cv2.pyrMeanShiftFiltering(img,7,30)
 gray = cv2.cvtColor(shifted, cv2.COLOR_BGR2GRAY)
 ret, thresh = cv2.threshold(gray, 0, 255,cv2.THRESH_BINARY | cv2.THRESH_OTSU)
@@ -98,7 +98,7 @@ lower_roads = np.array([90,10,100])
 higher_roads = np.array([100,100,100])
 
 lower_feilds = np.array([0,20,100])
-higher_feilds = np.array([255,60,255])
+higher_feilds = np.array([50,255,255])
 
 lower_feilds_blue = np.array([0,80,100])
 higher_feilds_blue = np.array([255,250,255])
@@ -109,7 +109,7 @@ maskhouses = cv2.inRange(hsv,lower_houses,higher_houses)
 maskroads = cv2.inRange(hsv,lower_roads,higher_roads)
 maskfeilds_houses = cv2.inRange(hsv,lower_feilds,higher_feilds)
 blue_limiter = cv2.inRange(hsv,lower_feilds_blue,higher_feilds_blue)
-maskfeilds = maskfeilds_houses - maskhouses - blue_limiter
+maskfeilds = maskfeilds_houses
 res = cv2.bitwise_and(img,img,mask=maskfeilds)
 
 

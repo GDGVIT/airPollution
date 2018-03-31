@@ -93,6 +93,6 @@ for x in range(cols):
         
 #below commands can get the full map on a separate window         
         
-       #im=Image.open(StringIO.StringIO(f.read()))
+       #im=Image.open(io.StringIO(f.read()))
         #final.paste(im, (int(x*largura), int(y*altura)))
 #final.show()

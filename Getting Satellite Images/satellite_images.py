@@ -5,7 +5,8 @@ Spyder Editor
 This is a temporary script file.
 """
 from PIL import Image
-import urllib
+import urllib.parse
+import urllib.request
 import io
 
 from math import log, exp, tan, atan, pi, ceil

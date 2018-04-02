@@ -59,9 +59,10 @@ def afforestation_area():
 
     print("Total area in cm^2 : ", tot_area_cm_land)
 
-    # in google maps 1cm = 200m in real life -> 1cm^2 = 200m^2 = 40000 m^2
-    print("Total area in m^2 : ", tot_area_cm_land*(40000))
-    tot_area_m_actual_land = tot_area_cm_land*(40000)
+    # in google maps 2.2cm = 50m => 1cm = 22.727272727272727 m in real life 
+    # 1cm^2 = (22.727272727272727m)^2 = 516.5289256198347 m^2
+    print("Total area in m^2 : ", tot_area_cm_land*(516.5289256198347))
+    tot_area_m_actual_land = tot_area_cm_land*(516.5289256198347)
 
     # 1 m^2 = 0.000247105 acres :: source Google
     tot_area_acre_land = tot_area_m_actual_land*0.000247105

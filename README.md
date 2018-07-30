@@ -24,5 +24,5 @@ In this process , we need to train a Classifier which can identify the buildings
 
 We will be finding the pollution level of the given area . According to that level, we will find the number of trees required to bring that particular level to normal. 
 
-![Image segmentation](https://s22.postimg.cc/6a67amyhd/IMG_20180326_003903_0
+![Image segmentation](https://s22.postimg.cc/6a67amyhd/IMG_20180326_003903_0)
 

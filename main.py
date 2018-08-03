@@ -78,19 +78,15 @@ def calculate_area(res):
     # says if you have 2 ft between rows, and 2ft between trees will can take 10890 trees per acre.
 
     number_of_trees = tot_area_acre_land*10890
-    print(f"{round(number_of_trees)} number of trees can be planted in {tot_area_acre_land} acres.")
+    # print(f"{round(number_of_trees)} number of trees can be planted in {tot_area_acre_land} acres.")
     
     return tot_area_acre_land, round(number_of_trees)
 
 
+def air_pollution_core(ullat, ullon, lrlat, lrlon, results):
+    
 
-def project_air_pollution(place):
-    results = find_coordinates(place)
     zoom = 18
-
-    ullat, ullon = results['upper_left']
-    lrlat, lrlon = results['lower_right']
-
     scale = 1
     maxsize = 640
 
@@ -117,14 +113,14 @@ def project_air_pollution(place):
             dyn = altura * (0.5 + y)
             latn, lonn = pixelstolatlon(ulx + dxn, uly - dyn - bottom / 2, zoom)
             position = ','.join((str(latn), str(lonn)))
-            print(x, y, position)
+            # print(x, y, position)
             urlparams = urllib.parse.urlencode({'center': position,
                                                 'zoom': str(zoom),
                                                 'size': '%dx%d' % (largura, alturaplus),
                                                 'maptype': 'satellite',
                                                 'sensor': 'false',
                                                 'scale': scale,
-                                                'key': 'YOUR API KEY HERE'})
+                                                'key': 'YOUR_API_HERE'})
             url = 'http://maps.google.com/maps/api/staticmap?' + urlparams
             f = urllib.request.urlopen(url)
             image = io.BytesIO(f.read())
@@ -172,15 +168,41 @@ def project_air_pollution(place):
                 "area_acres": area_in_acres,
                 "number_of_trees": number_of_trees
             }
-
+            # print(tile_results)
             total_tile_results["{}_{}_{}".format(x, y, position)] = tile_results
             # uncomment below for viewing the output images
             # cv2.imshow('res',res)
             # cv2.imshow('img', img)
             # cv2.waitKey(delay=2000)
             # cv2.destroyAllWindows()
-    
+    # print(total_tile_results)
     results["total_tile_results"] = total_tile_results
     results["total_acres_of_land"] = total_acres_place
     results["total_number_of_trees"] = total_trees
     return results
+
+def location_based_estimation(place):
+    """
+    :place: is a string that expects a name of a place
+    """
+    results = find_coordinates(place)
+
+    ullat, ullon = results['upper_left']
+    lrlat, lrlon = results['lower_right']
+
+    returning_json = air_pollution_core(ullat, ullon, lrlat, lrlon, results)
+    return returning_json
+
+def coordinates_based_estimation(ullat, ullon, lrlat, lrlon):
+    """
+    :upperleft: a string expecting upperleft coordinates of the tile you are expecting. ex : '12.92,79.11'
+    :lowerright: a string expecting lowerright coordinates of the tile you are expecting. ex :'12.91,79.13'
+    """
+    # print(f"{upperleft.replace('\"','')}")
+    # ullat, ullon = map(float, upperleft.split(','))
+    # lrlat, lrlon = map(float, lowerright.split(','))
+    results = dict()
+
+    returning_json = air_pollution_core(ullat, ullon, lrlat, lrlon, results)
+    return returning_json
+
